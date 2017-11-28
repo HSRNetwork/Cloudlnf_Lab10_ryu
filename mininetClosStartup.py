@@ -16,14 +16,14 @@ class Clos(Topo):
     def __init__(self, leaf=3, spine=2):
         """Create custom topology."""
         self.net = Mininet(topo=None)
-        self.controller = self.net.addController('c0', controller=RemoteController,
+        self.controller = self.net.addController('c1', controller=RemoteController,
                                                  ip="127.0.0.1", port=6633)
 
         # Initialize topology
         Topo.__init__(self)
 
         # Add leaf switches with hosts
-        for leaf_nr in range(0, leaf):
+        for leaf_nr in range(1, leaf+1):
             leaf_sw = self.net.addSwitch('l'+str(leaf_nr),
                                          failMode='secure',
                                          protocols='OpenFlow13')
@@ -32,7 +32,7 @@ class Clos(Topo):
             self.net.addLink(leaf_sw, host)
 
         # Add spine switches
-        for spine_nr in range(0, spine):
+        for spine_nr in range(1, spine+1):
             spine_sw = self.net.addSwitch('s'+str(spine_nr),
                                           failMode='secure',
                                           protocols='OpenFlow13')
