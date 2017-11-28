@@ -6,19 +6,24 @@ This Python script generates a CLOS environment (leaf, spine switches and a few 
 
 ## Usage
 Start environment:
-`sudo mn --custom mininetClosStartup.py --topo clos,LEAFS,SPINE --controller remote,ip=127.0.0.1`
+`sudo mn --custom mininetClosStartup.py --topo clos,LEAFS,SPINE --controller remote`
 
 Replace "LEAFS" with the number of leaf switches you would like to generate and "SPINE" with the number of spine switches. For every leaf switch there will be a host created and attached with it. 
 
 **Important:** Your OpenFlow controller instance (ryu) must be running before you start the mininet environment!
 
-Example:
+Start the ryu controller:
 ```
-(lab10_ryu) user@lnx01:~/code/cloudinf/lab10_ryu$ sudo mn --custom mininetClosStartup.py --topo clos,3,2 --controller remote,ip=127.0.0.1
+ryu-manager superSimpleHub.py --verbose
+```
+
+Start the mininet setup:
+```
+(lab10_ryu) user@lnx01:~/code/cloudinf/lab10_ryu$ sudo mn --custom mininetClosStartup.py --topo clos,3,2 --controller remote
 *** Configuring hosts
 h0 h1 h2 
 *** Starting controller
-
+c0
 *** Starting 5 switches
 l0 l1 l2 s0 s1 ...
 *** Starting CLI:
@@ -26,6 +31,8 @@ l0 l1 l2 s0 s1 ...
 
 ## Testing
 To test the OpenFlow13 controller behaviour, use the following commands:
+
+**Important:** Before you test your setup, ensure the topology is loop free..
 
 ### Check connectivity
 ```
